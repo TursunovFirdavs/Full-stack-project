@@ -1,12 +1,22 @@
 import React, { useState } from 'react'
 import { FaBootstrap } from "react-icons/fa";
+import { useDispatch, useSelector } from 'react-redux';
 import { Input } from '../ui';
+import { registerUserStart } from '../slice/auth';
 
 
 const Register = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const dispatch = useDispatch()
+  const {isLoading} = useSelector(state => state.auth)
+
+
+  const loginHandle = e => {
+    e.preventDefault()
+    dispatch(registerUserStart())
+  }
 
   return (
     <div className='mt-100'>
@@ -23,7 +33,9 @@ const Register = () => {
           <input type="checkbox" value="remember-me" /> Remember me
         </label>
       </div>
-      <button className="w-100 btn btn-lg btn-primary" type="submit">Sign up</button>
+      <button className="w-100 btn btn-lg btn-primary" type="submit" disabled={isLoading} onClick={loginHandle}>
+        {isLoading ? 'loading...' : 'Log in'}
+      </button>
       <p className="mt-5 mb-3 text-muted">© 2017–2021</p>
     </form>
     </div>
