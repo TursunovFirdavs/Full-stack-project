@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import { FaBootstrap } from "react-icons/fa";
 import { Input } from '../ui';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginUserStart } from '../slice/auth';
+import AuthService from '../service/auth';
+import { signUserFailure, signUserStart, signUserSuccess } from '../slice/auth';
 
 const Login = () => {
   const [email, setEmail] = useState('')
@@ -12,9 +13,19 @@ const Login = () => {
   console.log(isLoading);
   // console.log(dispatch);
 
-  const loginHandle = e => {
+  const loginHandle = async (e) => {
     e.preventDefault()
-    dispatch(loginUserStart())
+    dispatch(signUserStart())
+    const user = {email, password}
+    try {
+      const response = await AuthService.userLogin(user)
+      console.log(response);
+      dispatch(signUserSuccess(response.user))
+    }
+    catch (error) {
+      console.log(error)
+      dispatch(signUserFailure(error.response.data.errors))
+    }
   }
 
   return (

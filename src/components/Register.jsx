@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { FaBootstrap } from "react-icons/fa";
 import { useDispatch, useSelector } from 'react-redux';
 import { Input } from '../ui';
-import { registerUserFailure, registerUserStart, registerUserSuccess } from '../slice/auth';
+import { signUserFailure, signUserStart, signUserSuccess } from '../slice/auth';
 import AuthService from '../service/auth';
 
 const Register = () => {
@@ -13,19 +13,19 @@ const Register = () => {
   const {isLoading} = useSelector(state => state.auth)
 
 
-  const loginHandle = async (e) => {
+  const registerHandle = async (e) => {
     e.preventDefault()
-    dispatch(registerUserStart())
+    dispatch(signUserStart())
     const user = {username: name, email, password}
     try {
       const response = await AuthService.userRegister(user)
       console.log(response);
       console.log(user);
-      dispatch(registerUserSuccess())
+      dispatch(signUserSuccess())
     }
     catch (error) {
-      console.log(error);
-      dispatch(registerUserFailure())
+      console.log(error.response.data.errors);
+      dispatch(signUserFailure(error.response.data.errors))
     }
   }
 
@@ -44,7 +44,7 @@ const Register = () => {
           <input type="checkbox" value="remember-me" /> Remember me
         </label>
       </div>
-      <button className="w-100 btn btn-lg btn-primary" type="submit" disabled={isLoading} onClick={loginHandle}>
+      <button className="w-100 btn btn-lg btn-primary" type="submit" disabled={isLoading} onClick={registerHandle}>
         {isLoading ? 'loading...' : 'Log in'}
       </button>
       <p className="mt-5 mb-3 text-muted">© 2017–2021</p>
