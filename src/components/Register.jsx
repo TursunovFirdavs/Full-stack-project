@@ -22,7 +22,7 @@ const Register = () => {
       const response = await AuthService.userRegister(user)
       console.log(response);
       console.log(user);
-      dispatch(signUserSuccess())
+      dispatch(signUserSuccess(response.user))
     }
     catch (error) {
       console.log(error);
