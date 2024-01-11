@@ -1,16 +1,18 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaBootstrap } from "react-icons/fa";
 import { Input } from '../ui';
 import { useDispatch, useSelector } from 'react-redux';
 import AuthService from '../service/auth';
 import { signUserFailure, signUserStart, signUserSuccess } from '../slice/auth';
 import { ValidationError } from './'
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const {isLoading, isLogin} = useSelector(state => state.auth)
   const dispatch = useDispatch()
-  const {isLoading} = useSelector(state => state.auth)
+  const navigate = useNavigate()
   console.log(isLoading);
   // console.log(dispatch);
 
@@ -20,7 +22,8 @@ const Login = () => {
     const user = {email, password}
     try {
       const response = await AuthService.userLogin(user)
-      console.log(response);
+      navigate('/')
+      // console.log(response);
       dispatch(signUserSuccess(response.user))
     }
     catch (error) {
@@ -28,6 +31,12 @@ const Login = () => {
       dispatch(signUserFailure(error.response.data.errors))
     }
   }
+
+  useEffect(() => {
+    if(isLogin) {
+      navigate('/')
+    }
+  }, [])
 
   return (
     <div className='mt-100'>

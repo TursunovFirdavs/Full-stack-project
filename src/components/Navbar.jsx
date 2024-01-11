@@ -1,8 +1,12 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 
 const Navbar = () => {
+  const { isLogin, user } = useSelector(state => state.auth)
+  console.log(isLogin);
+
   return (
     <div className="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom container mt-3">
       <a href="/" className="d-flex align-items-center text-dark text-decoration-none">
@@ -11,8 +15,19 @@ const Navbar = () => {
       </a>
 
       <nav className="d-inline-flex mt-2 mt-md-0 ms-md-auto">
-        <Link to='/login'className='me-3 py-2 text-dark text-decoration-none'>Login</Link>
-        <Link to='/register'className='me-3 py-2 text-dark text-decoration-none'>Register</Link>
+        {
+          isLogin ? (
+            <>
+              <p className='me-3 py-2 m-0 text-dark text-decoration-none'>{user.username}</p>
+              <button className='btn btn-outline-danger'>Log out</button>
+            </>
+          ) : (
+            <>
+              <Link to='/login' className='me-3 py-2 text-dark text-decoration-none'>Login</Link>
+              <Link to='/register' className='me-3 py-2 text-dark text-decoration-none'>Register</Link>
+            </>
+          )
+        }
       </nav>
     </div>
   )

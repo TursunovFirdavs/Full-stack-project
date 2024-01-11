@@ -1,17 +1,19 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaBootstrap } from "react-icons/fa";
 import { useDispatch, useSelector } from 'react-redux';
 import { Input } from '../ui';
 import { signUserFailure, signUserStart, signUserSuccess } from '../slice/auth';
 import AuthService from '../service/auth';
 import { ValidationError } from './';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const dispatch = useDispatch()
-  const { isLoading } = useSelector(state => state.auth)
+  const { isLoading, isLogin } = useSelector(state => state.auth)
+  const navigate = useNavigate()
 
 
   const registerHandle = async (e) => {
@@ -23,12 +25,19 @@ const Register = () => {
       console.log(response);
       console.log(user);
       dispatch(signUserSuccess(response.user))
+      navigate('/')
     }
     catch (error) {
       console.log(error);
       dispatch(signUserFailure(error.response.data.errors))
     }
   }
+
+  useEffect(() => {
+    if(isLogin) {
+      navigate('/')
+    }
+  }, [])
 
   return (
     <div className='mt-100'>
