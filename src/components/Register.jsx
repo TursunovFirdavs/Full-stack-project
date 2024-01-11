@@ -37,7 +37,7 @@ const Register = () => {
     if(isLogin) {
       navigate('/')
     }
-  }, [])
+  }, [isLogin])
 
   return (
     <div className='mt-100'>

@@ -25,6 +25,7 @@ export const authSlice = createSlice({
         },
         signUserFailure: (state, action) => {
             state.isLoading = false
+            console.log(action);
             state.error = action.payload
         }
 

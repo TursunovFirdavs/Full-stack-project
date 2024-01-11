@@ -6,3 +6,12 @@ export const setItem = (key, data) => {
         console.log(error);
     }
 }
+
+export const getUser = (key) => {
+    try {
+        return localStorage.getItem(key)
+    }
+    catch (error) {
+        console.log('Error getting data');
+    }
+}

@@ -13,7 +13,7 @@ const Login = () => {
   const {isLoading, isLogin} = useSelector(state => state.auth)
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  console.log(isLoading);
+  // console.log(isLoading);
   // console.log(dispatch);
 
   const loginHandle = async (e) => {
@@ -27,8 +27,8 @@ const Login = () => {
       dispatch(signUserSuccess(response.user))
     }
     catch (error) {
-      console.log(error)
-      dispatch(signUserFailure(error.response.data.errors))
+      console.log(error.response?.data.errors)
+      dispatch(signUserFailure(error.response?.data.errors))
     }
   }
 
@@ -36,7 +36,7 @@ const Login = () => {
     if(isLogin) {
       navigate('/')
     }
-  }, [])
+  }, [isLogin])
 
   return (
     <div className='mt-100'>
