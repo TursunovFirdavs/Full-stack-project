@@ -1,11 +1,21 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
+import { logoutUser } from '../slice/auth'
+import { removeItem } from '../helpers/persistance-storage'
 
 
 const Navbar = () => {
   const { isLogin, user } = useSelector(state => state.auth)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   // console.log(isLogin);
+
+  const handleLogout = () => {
+    dispatch(logoutUser())
+    navigate('/login')
+    removeItem('token')
+  }
 
   return (
     <div className="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom container mt-3">
@@ -19,7 +29,7 @@ const Navbar = () => {
           isLogin ? (
             <>
               <p className='me-3 py-2 m-0 text-dark text-decoration-none'>{user.username}</p>
-              <button className='btn btn-outline-danger'>Log out</button>
+              <button onClick={handleLogout} className='btn btn-outline-danger'>Log out</button>
             </>
           ) : (
             <>

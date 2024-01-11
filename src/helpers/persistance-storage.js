@@ -15,3 +15,12 @@ export const getUser = (key) => {
         console.log('Error getting data');
     }
 }
+
+export const removeItem = (key) => {
+    try {
+        return localStorage.removeItem(key)
+    }
+    catch (error) {
+        console.log('Error removing data');
+    }
+}
