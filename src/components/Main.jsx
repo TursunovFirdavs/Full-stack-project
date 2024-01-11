@@ -1,12 +1,16 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { Loader } from '../ui';
 
 
 const Main = () => {
-  const { articles } = useSelector(state => state.article)
+  const { articles, isLoading } = useSelector(state => state.article)
   console.log(articles);
   return (
     <div className='container'>
+      {
+        isLoading && <Loader/>
+      }
       <div className="album py-5">
         <div className="container">
 
@@ -20,15 +24,15 @@ const Main = () => {
                     <div className="card-body">
                       <p title={artc.title} className="card-text">{artc.title.length < 40 ? artc.title : artc.title.slice(0, 40) + '...' }</p>
                       <p title={artc.description} className="card-text">{artc.description.length < 80 ? artc.description : artc.description.slice(0, 80) + '...' }</p>
-                      <div className="d-flex justify-content-between align-items-center">
+                    </div>
+                    <div className="card-footer d-flex justify-content-between align-items-center">
                         <div className="btn-group">
                           <button type="button" className="btn btn-sm btn-outline-success">View</button>
                           <button type="button" className="btn btn-sm btn-outline-secondary">Edit</button>
                           <button type="button" className="btn btn-sm btn-outline-danger">delete</button>
                         </div>
-                        <small className="text-muted">9 mins</small>
+                        <small className="text-muted">{artc.author.username}</small>
                       </div>
-                    </div>
                   </div>
                 </div>
               )
