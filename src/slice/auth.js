@@ -61,6 +61,7 @@ export const authSlice = createSlice({
 //         },
     }
 })
+console.log(authSlice);
 
 // export const { loginUserStart, loginUserFailure, loginUserSuccess, registerUserStart, registerUserFailure, registerUserSuccess } = authSlice.actions
 export const { logoutUser, signUserStart, signUserSuccess, signUserFailure } = authSlice.actions
