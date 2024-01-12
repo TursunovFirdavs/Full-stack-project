@@ -60,7 +60,7 @@ const Main = () => {
                         <button onClick={() => navigate(`/article/${artc.slug}`)} type="button" className="btn btn-sm btn-outline-success">View</button>
                         {isLogin && user.username === artc.author.username && (
                           <>
-                            <button type="button" className="btn btn-sm btn-outline-secondary">Edit</button>
+                            <button onClick={() => navigate(`/edit-article/${artc.slug}`)} type="button" className="btn btn-sm btn-outline-secondary">Edit</button>
                             <button onClick={() => deleteArticle(artc.slug)} type="button" className="btn btn-sm btn-outline-danger">delete</button>
                           </>
                         )}
