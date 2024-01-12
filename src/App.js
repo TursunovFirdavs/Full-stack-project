@@ -1,6 +1,6 @@
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
-import { Main, Login, Register, Navbar, ArticleDetails } from './components'
+import { Main, Login, Register, Navbar, ArticleDetails, CreateArticle } from './components'
 import AuthService from './service/auth';
 import { useDispatch } from 'react-redux';
 import { signUserSuccess } from './slice/auth';
@@ -49,6 +49,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
         <Route path='/article/:slug' element={<ArticleDetails/>} />
+        <Route path='/create-article' element={<CreateArticle/>} />
       </Routes>
       </div>
     </div>
