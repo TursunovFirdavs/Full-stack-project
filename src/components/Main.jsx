@@ -11,14 +11,14 @@ const Main = () => {
   const { isLogin, user } = useSelector(state => state.auth)
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  console.log(articles);
+  // console.log(articles);
 
   const getArticles = async () => {
     dispatch(getArticleStart())
     try {
       const response = await ArticleService.getArticle()
       dispatch(getArticleSuccess(response.articles))
-      console.log(response);
+      // console.log(response);
     } catch (error) {
       console.log(error);
     }

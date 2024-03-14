@@ -11,7 +11,7 @@ const AuthService = {
     },
     async getUser() {
         const {data} = await axios.get('/user')
-        console.log(data);
+        // console.log(data);
         return data
     }
 }

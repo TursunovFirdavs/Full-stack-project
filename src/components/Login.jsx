@@ -27,7 +27,7 @@ const Login = () => {
       dispatch(signUserSuccess(response.user))
     }
     catch (error) {
-      console.log(error.response?.data.errors)
+      // console.log(error.response?.data.errors)
       dispatch(signUserFailure(error.response?.data.errors))
     }
   }
